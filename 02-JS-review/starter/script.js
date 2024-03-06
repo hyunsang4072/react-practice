@@ -142,3 +142,29 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
+
+const book = getBook(3);
+
+// const title = book.title;
+
+// const pubDate = book.publicationDate;
+
+// const author = book.author;
+
+const genres = book.genres;
+
+// rest operator
+const { title, publicationDate, ...rest } = book;
+
+// spread operator
+const newGenres = [...genres, 'Epic Games'];
+
+// modification made after spread operation
+const newBook = { ...book, moviePubDate: '2024-03-06', translations: { spanish: "hola" } };
+
+// arrow function
+const getYear = (str) => str.split('-')[0];
+
+const duneSummary = `${title} was written by ${book.author} in ${getYear(publicationDate)}.`;
+
+const howLong = book.pages > 1000 ? "very long" : "not very long";
