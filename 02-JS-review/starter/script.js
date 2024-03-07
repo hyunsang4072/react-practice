@@ -153,18 +153,89 @@ const book = getBook(3);
 
 const genres = book.genres;
 
-// rest operator
-const { title, publicationDate, ...rest } = book;
+// // rest operator
+// const { title, publicationDate, ...rest } = book;
 
-// spread operator
-const newGenres = [...genres, 'Epic Games'];
+// // spread operator
+// const newGenres = [...genres, 'Epic Games'];
 
-// modification made after spread operation
-const newBook = { ...book, moviePubDate: '2024-03-06', translations: { spanish: "hola" } };
+// // modification made after spread operation
+// const newBook = { ...book, moviePubDate: '2024-03-06', translations: { spanish: "hola" } };
 
-// arrow function
-const getYear = (str) => str.split('-')[0];
+// // arrow function
+// const getYear = (str) => str.split('-')[0];
 
-const duneSummary = `${title} was written by ${book.author} in ${getYear(publicationDate)}.`;
+// const duneSummary = `${title} was written by ${book.author} in ${getYear(publicationDate)}.`;
 
-const howLong = book.pages > 1000 ? "very long" : "not very long";
+// const howLong = book.pages > 1000 ? "very long" : "not very long";
+
+// // nullish coalescing operator
+// // similar to ||(OR) but returns false iff null or undefined
+// const count = book.reviews.librarything?.reviewsCount ?? 'no data';
+
+// // optional chaining
+// function getTotalReviewCount(book) {
+//   const goodreads = book.reviews.goodreads.reviewsCount;
+//   const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+//   return goodreads + librarything;
+// }
+
+const arr = [1, 2, 3, 4, 5].map((elem) => elem * 2);
+
+const arr2 = [1, 2, 3, 4, 5].map(elem => {
+  return elem / 2;
+})
+
+const books = getBooks();
+
+const essentialData = getBooks().map(book => ({
+  title: book.title,
+  author: book.author,
+  publishedDate: book.publicationDate.split('-')[0],
+}));
+
+const adventureBooks = books
+  .filter(book => book.genres.includes('adventure'))
+  .map(book => book.title);
+
+const nums = [1, 2, 3, 4, 5];
+
+// reduce(func, initVal)
+// accumulation of elements in the array
+const summation = nums.reduce(
+  (acc, curr) => acc * curr,
+);
+
+const unsorted = [500, 3, 17, 9999, 2000];
+
+// -1 if a < b
+// +1 if a > b
+// 0 else
+const ascending = unsorted.toSorted((a, b) => a - b);
+const descending = unsorted.toSorted((a, b) => b - a);
+
+const sortedByPages = books.toSorted((book1, book2) => book1.pages - book2.pages);
+
+const harry = {
+  id: 6,
+  title: 'Harry Cho',
+  author: 'Cho Harry',
+};
+
+const newBooks = [...books, harry];
+
+const updatedBooks = newBooks.map(book =>
+  book.id === 1 ? { ...book, pages: 1978 } : book,
+);
+
+// promises with then
+// const fake = fetch("https://jsonplaceholder.typicode.com/todos")
+//   .then((res) => res.json())
+//   .then((data) => data);
+
+// async/await
+async function getData() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const data = res.json();
+  return data;
+}
